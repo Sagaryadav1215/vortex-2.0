@@ -1,0 +1,362 @@
+# ⚡ VORTEX 2.0 — Architecture
+
+## 1. Overview
+
+VORTEX 2.0 uses two main controllers:
+
+* **ESP32** → Controls the robot
+* **ESP8266** → Controls home appliances
+
+Both controllers communicate through **Wi-Fi and Blynk IoT Cloud**.
+
+---
+
+## 2. Basic Architecture
+
+```text
+                 USER
+                  │
+             Voice Command
+                  │
+                  ▼
+               VC-02
+                  │
+                  ▼
+               ESP32
+          Main Robot Controller
+                  │
+        ┌─────────┼─────────┐
+        │         │         │
+        ▼         ▼         ▼
+     Motors    Sensors     OLED
+        │         │
+        │         ▼
+        │      HC-SR04
+        │      DHT22
+        │
+        ▼
+      Robot
+
+                  │
+               Wi-Fi
+                  │
+                  ▼
+             Blynk Cloud
+                  │
+               Wi-Fi
+                  │
+                  ▼
+               ESP8266
+          Appliance Controller
+                  │
+                  ▼
+             4-CH Relay
+          ┌───────┼───────┐
+          │       │       │
+         Fan    Light   Water Motor
+                          │
+                          ▼
+                          TV
+```
+
+---
+
+## 3. ESP32 — Main Robot Controller
+
+The **ESP32** is the main controller of VORTEX 2.0.
+
+It handles:
+
+* Voice commands
+* Motor movement
+* Obstacle detection
+* Temperature and humidity
+* OLED display
+* Audio feedback
+* Wi-Fi communication
+* Blynk communication
+
+### Main Components Connected to ESP32
+
+| Component     | Purpose                |
+| ------------- | ---------------------- |
+| VC-02         | Voice commands         |
+| L298N         | Motor control          |
+| HC-SR04       | Obstacle detection     |
+| DHT22         | Temperature & humidity |
+| OLED          | Display                |
+| DFPlayer Mini | Audio feedback         |
+
+---
+
+## 4. ESP8266 — Appliance Controller
+
+The **ESP8266 NodeMCU** is used for smart-home appliance control.
+
+It receives commands from Blynk Cloud and controls a 4-channel relay.
+
+```text
+Blynk Cloud
+     │
+     ▼
+  ESP8266
+     │
+     ▼
+  4-CH Relay
+     │
+ ┌───┼──────────────┐
+ ▼   ▼              ▼
+Fan Light       Water Motor
+                    │
+                    ▼
+                    TV
+```
+
+### Relay Assignment
+
+| Relay   | Appliance   |
+| ------- | ----------- |
+| Relay 1 | Fan         |
+| Relay 2 | Light       |
+| Relay 3 | Water Motor |
+| Relay 4 | TV          |
+
+---
+
+## 5. Voice Command Flow
+
+VORTEX uses predefined voice commands.
+
+```text
+User
+ ↓
+VC-02
+ ↓
+ESP32
+ ↓
+Command Processing
+ ↓
+Action
+```
+
+### Example
+
+```text
+"Forward"
+    ↓
+  VC-02
+    ↓
+  ESP32
+    ↓
+ L298N
+    ↓
+ Motors
+    ↓
+Robot moves forward
+```
+
+---
+
+## 6. Appliance Control Flow
+
+For home appliances, the command travels through Blynk Cloud.
+
+```text
+User
+ ↓
+Voice Command
+ ↓
+VC-02
+ ↓
+ESP32
+ ↓
+Blynk Cloud
+ ↓
+ESP8266
+ ↓
+Relay
+ ↓
+Appliance
+```
+
+### Example
+
+```text
+"Fan ON"
+    ↓
+  ESP32
+    ↓
+Blynk Cloud
+    ↓
+  ESP8266
+    ↓
+ Relay 1
+    ↓
+ Fan ON
+```
+
+---
+
+## 7. Sensor Architecture
+
+### HC-SR04
+
+Used for detecting obstacles in front of the robot.
+
+```text
+HC-SR04
+   ↓
+ESP32
+   ↓
+Distance
+   ↓
+Obstacle Detection
+```
+
+### DHT22
+
+Used to measure:
+
+* Temperature
+* Humidity
+
+```text
+DHT22
+  ↓
+ESP32
+  ↓
+Temperature / Humidity
+```
+
+---
+
+## 8. OLED Display
+
+The SSD1306 OLED is connected to the ESP32 using **I²C**.
+
+It can display information such as:
+
+```text
+SYSTEM AWAKE
+LISTENING...
+MOVING
+OBSTACLE DETECTED
+FAN ON
+LIGHT ON
+```
+
+It can also be used for VORTEX's expressive eye/interface animations.
+
+---
+
+## 9. Audio System
+
+The DFPlayer Mini is connected to the ESP32.
+
+```text
+ESP32
+  ↓
+DFPlayer Mini
+  ↓
+Speaker
+```
+
+Example:
+
+```text
+System Start
+     ↓
+"Hi Buddy, How can I help you?"
+```
+
+Audio can also provide feedback for commands and system events.
+
+---
+
+## 10. Communication
+
+VORTEX 2.0 uses different communication methods:
+
+| Communication | Used For         |
+| ------------- | ---------------- |
+| UART          | VC-02 ↔ ESP32    |
+| UART          | ESP32 ↔ DFPlayer |
+| I²C           | ESP32 ↔ OLED     |
+| GPIO          | Sensors & Motors |
+| Wi-Fi         | ESP32 ↔ Blynk    |
+| Wi-Fi         | ESP8266 ↔ Blynk  |
+
+---
+
+## 11. Complete System Flow
+
+The complete system can be simplified as:
+
+```text
+                 VORTEX 2.0
+                      │
+                      ▼
+                    USER
+                      │
+                 Voice Command
+                      │
+                      ▼
+                    VC-02
+                      │
+                      ▼
+                    ESP32
+                      │
+          ┌───────────┼───────────┐
+          │           │           │
+          ▼           ▼           ▼
+       Motors      Sensors       OLED
+          │           │
+          ▼           ▼
+       Movement    Detection
+                      │
+                      │
+                      ▼
+                 Blynk Cloud
+                      │
+                      ▼
+                   ESP8266
+                      │
+                      ▼
+                  4-Relay
+                      │
+          ┌───────────┼───────────┐
+          ▼           ▼           ▼
+         Fan        Light     Water Motor
+                                   │
+                                   ▼
+                                   TV
+```
+
+---
+
+## 12. Simple Summary
+
+| System       | Controller | Main Function          |
+| ------------ | ---------- | ---------------------- |
+| Robot        | ESP32      | Movement & sensing     |
+| Voice        | VC-02      | Voice commands         |
+| Motors       | L298N      | Robot movement         |
+| Distance     | HC-SR04    | Obstacle detection     |
+| Environment  | DHT22      | Temperature & humidity |
+| Display      | SSD1306    | Visual feedback        |
+| Audio        | DFPlayer   | Voice/audio feedback   |
+| IoT          | Blynk      | Communication          |
+| Home Control | ESP8266    | Appliance control      |
+| Switching    | 4-CH Relay | Appliance ON/OFF       |
+
+---
+
+# ⚡ Architecture in One Line
+
+> **VC-02 → ESP32 → Robot / Blynk Cloud → ESP8266 → Relay → Home Appliances**
+
+### VORTEX 2.0
+
+**ESP32 + ESP8266 + Voice + Sensors + Robotics + IoT**
+
+> **Sense. Respond. Move.**
