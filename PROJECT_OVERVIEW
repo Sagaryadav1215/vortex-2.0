@@ -1,0 +1,799 @@
+# ⚡ VORTEX 2.0 — Project Overview
+
+## Non-AI Robotic Companion System
+
+> **Sense. Respond. Move.**
+
+---
+
+## 1. Project Introduction
+
+**VORTEX 2.0** is an advanced experimental robotics platform designed to combine **embedded systems, mobile robotics, voice interaction, environmental sensing, IoT, smart-home automation, and human-machine interaction** into a single integrated system.
+
+The project is the next-generation evolution of the original VORTEX platform. While the first version focused primarily on voice-controlled robotic movement and smart-home appliance control, VORTEX 2.0 expands the concept toward a more complete **robotic companion system**.
+
+VORTEX 2.0 is intentionally designed as a **Non-AI Robot System**. Its core functions are achieved using predefined commands, programmed logic, sensors, microcontrollers, communication protocols, and physical actuators rather than artificial-intelligence models.
+
+The project is intended to serve as both a functional robotic prototype and a platform for learning, experimentation, and future development.
+
+---
+
+# 2. Project Identity
+
+### Project Name
+
+**VORTEX 2.0**
+
+### Project Type
+
+**Non-AI Robotic Companion System**
+
+### Primary Domains
+
+```text
+Embedded Systems
+Robotics
+IoT
+Voice Interaction
+Smart Home Automation
+Sensor Systems
+Motor Control
+Human-Machine Interaction
+```
+
+### Core Controllers
+
+```text
+ESP32 DevKit V1
+ESP8266 NodeMCU
+```
+
+---
+
+# 3. Project Vision
+
+The long-term vision of VORTEX is to create a robotic platform that can physically interact with people and its environment while remaining based on understandable embedded-system principles.
+
+The robot is envisioned as a system that can:
+
+* Listen to predefined voice commands
+* Move through a physical environment
+* Detect nearby obstacles
+* Monitor environmental conditions
+* Control connected home appliances
+* Provide visual feedback
+* Provide audio feedback
+* Communicate through IoT infrastructure
+* React according to programmed logic
+* Support future hardware modules
+
+The ultimate objective is to continuously evolve the VORTEX platform through successive hardware and software generations.
+
+---
+
+# 4. Core Concept
+
+The central concept behind VORTEX 2.0 is:
+
+> **A robot can be interactive without depending on AI.**
+
+VORTEX uses a deterministic control architecture.
+
+Instead of:
+
+```text
+User
+ ↓
+AI Model
+ ↓
+Generated Response
+ ↓
+Action
+```
+
+VORTEX follows:
+
+```text
+User
+ ↓
+Voice Command
+ ↓
+Command Recognition
+ ↓
+Predefined Logic
+ ↓
+Controller
+ ↓
+Action
+ ↓
+Feedback
+```
+
+This architecture allows the behavior of the robot to be explicitly programmed and understood.
+
+---
+
+# 5. Why Non-AI?
+
+VORTEX 2.0 deliberately explores robotics without making AI the core dependency.
+
+The project focuses on understanding fundamental engineering concepts such as:
+
+* Microcontroller programming
+* Digital input/output
+* UART communication
+* I²C communication
+* Sensor interfacing
+* Motor control
+* Wireless communication
+* IoT architecture
+* Relay control
+* Audio systems
+* Display systems
+* Power management
+* Embedded decision logic
+
+This makes VORTEX particularly useful as an educational and experimental platform for embedded robotics.
+
+---
+
+# 6. Evolution of VORTEX
+
+## VORTEX 1.0
+
+The original VORTEX system established the basic platform.
+
+Its major functions included:
+
+* Voice-controlled movement
+* ESP32-based robot control
+* HC-SR04 obstacle detection
+* DHT22 environmental sensing
+* OLED display
+* DFPlayer audio feedback
+* ESP8266 appliance controller
+* Blynk IoT communication
+* Four-channel relay control
+
+The first generation established the fundamental connection between the robot and smart-home environment.
+
+---
+
+## VORTEX 2.0
+
+VORTEX 2.0 expands that foundation into a broader robotic-companion concept.
+
+The development direction includes:
+
+* Improved robotic interaction
+* More expressive OLED interface
+* Enhanced environmental awareness
+* Improved movement behavior
+* Modular hardware architecture
+* Expanded sensing capabilities
+* Better audio interaction
+* Smart-home integration
+* Future autonomous-style behaviors
+* New mechanical design concepts
+
+```text
+             VORTEX 1.0
+                  │
+                  ▼
+       Embedded Robotics Foundation
+                  │
+                  ▼
+             VORTEX 2.0
+                  │
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+     Robotics    IoT    Interaction
+        │         │         │
+        ▼         ▼         ▼
+    Movement   Home      Voice
+    Sensing    Control   OLED
+                         Audio
+```
+
+---
+
+# 7. System Architecture
+
+VORTEX 2.0 uses a distributed controller architecture.
+
+The **ESP32** functions as the primary robotic controller, while the **ESP8266** is dedicated to smart-home appliance control.
+
+```text
+                         USER
+                           │
+                     Voice Command
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │    VC-02    │
+                    │ Voice Input │
+                    └──────┬──────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │    ESP32     │
+                    │ Main Control │
+                    └──────┬──────┘
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+       Motors           Sensors            OLED
+          │                │                │
+          ▼                ▼                ▼
+      Movement        Environment       Visual UI
+                           │
+                           ▼
+                     Blynk IoT Cloud
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │   ESP8266   │
+                    │  Appliance  │
+                    │  Controller │
+                    └──────┬──────┘
+                           │
+                 ┌─────────┼─────────┐
+                 ▼         ▼         ▼
+                FAN      LIGHT      TV
+                           │
+                      WATER MOTOR
+```
+
+---
+
+# 8. Main System Components
+
+## 8.1 ESP32 Main Controller
+
+The ESP32 is the central processing unit of the robot.
+
+It manages:
+
+* Voice commands
+* Motor movement
+* Ultrasonic sensing
+* Temperature and humidity sensing
+* OLED interface
+* Audio feedback
+* Wi-Fi connectivity
+* Blynk communication
+* Robot control logic
+
+---
+
+## 8.2 ESP8266 Appliance Controller
+
+The ESP8266 acts as a dedicated home-automation controller.
+
+It receives commands through the Blynk IoT infrastructure and operates a four-channel relay module.
+
+### Appliance Mapping
+
+| Relay   | Appliance   |
+| ------- | ----------- |
+| Relay 1 | Fan         |
+| Relay 2 | Light       |
+| Relay 3 | Water Motor |
+| Relay 4 | Television  |
+
+This separation allows the robot controller and appliance controller to operate as independent embedded systems.
+
+---
+
+# 9. Voice Interaction
+
+Voice interaction is one of the primary human interfaces of VORTEX 2.0.
+
+A **VC-02 voice-recognition module** is used to detect predefined commands.
+
+A typical interaction sequence is:
+
+```text
+User
+ ↓
+"Hey Vortex"
+ ↓
+Voice Module
+ ↓
+ESP32
+ ↓
+Command Processing
+ ↓
+Action
+ ↓
+Audio / OLED Feedback
+```
+
+Example commands include:
+
+### Movement
+
+```text
+Forward
+Backward
+Left
+Right
+Stop
+```
+
+### Appliances
+
+```text
+Fan ON
+Fan OFF
+
+Light ON
+Light OFF
+
+Water Motor ON
+Water Motor OFF
+
+TV ON
+TV OFF
+```
+
+The command vocabulary can be expanded or modified as the firmware develops.
+
+---
+
+# 10. Environmental Awareness
+
+VORTEX uses sensors to obtain information about its environment.
+
+### Ultrasonic Sensing
+
+The HC-SR04 can be used for:
+
+* Distance measurement
+* Obstacle detection
+* Front-facing environmental awareness
+
+### Environmental Monitoring
+
+The DHT22 provides:
+
+* Temperature
+* Humidity
+
+The sensor information can be displayed through the OLED interface or used by the control logic.
+
+---
+
+# 11. Robotic Movement
+
+VORTEX 2.0 uses a motor-driven mobile platform.
+
+An **L298N motor driver** interfaces the ESP32 with the DC gear motors.
+
+Basic movement functions include:
+
+```text
+FORWARD
+BACKWARD
+LEFT
+RIGHT
+STOP
+```
+
+Movement commands are processed by the ESP32 and translated into motor-control signals.
+
+Obstacle information from the ultrasonic sensor can also be incorporated into movement decisions.
+
+---
+
+# 12. Visual Interaction
+
+An **SSD1306 OLED display** forms part of the robot's visual interface.
+
+The display can communicate the robot's current state to the user.
+
+Possible display states include:
+
+```text
+SYSTEM STARTING
+
+SYSTEM AWAKE
+
+LISTENING...
+
+MOVING FORWARD
+
+OBSTACLE DETECTED
+
+FAN ON
+
+LIGHT OFF
+
+SYSTEM IDLE
+```
+
+The VORTEX 2.0 concept also includes expressive OLED graphics that can give the robot a recognizable visual identity.
+
+---
+
+# 13. Audio Interaction
+
+A **DFPlayer Mini** provides audio playback functionality.
+
+An external speaker can be used for system responses.
+
+The startup sequence can include:
+
+```text
+BOOT
+ ↓
+INITIALIZATION
+ ↓
+SYSTEM CHECK
+ ↓
+VORTEX ONLINE
+ ↓
+"Hi Buddy, How can I help you?"
+```
+
+Pre-recorded audio can also provide feedback for commands and system events.
+
+---
+
+# 14. IoT Integration
+
+Blynk IoT provides the communication layer between the robot and appliance controller.
+
+The architecture is:
+
+```text
+ESP32
+  │
+  │ Wi-Fi
+  ▼
+Blynk Cloud
+  │
+  │ Wi-Fi
+  ▼
+ESP8266
+  │
+  ▼
+Relay Module
+  │
+  ▼
+Home Appliances
+```
+
+This distributed architecture allows the robot to function as an interface for smart-home control.
+
+---
+
+# 15. Hardware Philosophy
+
+VORTEX follows a modular hardware philosophy.
+
+Individual subsystems can be developed and tested independently.
+
+```text
+             VORTEX
+                │
+ ┌──────────────┼───────────────┐
+ │              │               │
+ ▼              ▼               ▼
+CONTROL       SENSING       INTERACTION
+ │              │               │
+ ▼              ▼               ▼
+ESP32        HC-SR04          OLED
+Motors       DHT22            DFPlayer
+L298N                           Speaker
+ │
+ ▼
+MOVEMENT
+```
+
+This modular structure makes it easier to troubleshoot, upgrade, and expand the robot.
+
+---
+
+# 16. Power System
+
+The VORTEX platform is designed around a rechargeable lithium-ion battery system.
+
+The conceptual power architecture consists of:
+
+```text
+3S 18650 Battery Pack
+          │
+          ▼
+        3S BMS
+          │
+     ┌────┴────┐
+     │         │
+     ▼         ▼
+ Motor Rail  LM2596
+                 │
+                 ▼
+            Logic Supply
+```
+
+The power system must provide appropriate voltage and current for:
+
+* Motors
+* ESP32
+* ESP8266
+* Sensors
+* OLED
+* DFPlayer
+* Relay system
+
+Power distribution and regulation should be validated for the actual hardware configuration before deployment.
+
+---
+
+# 17. Human-Machine Interaction Model
+
+VORTEX 2.0 combines multiple interaction channels.
+
+```text
+                 USER
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+      VOICE               VISUAL
+        │                   │
+        ▼                   ▼
+      VC-02               OLED
+        │
+        ▼
+      ESP32
+        │
+        ├───────────────┐
+        │               │
+        ▼               ▼
+     ACTION           AUDIO
+        │               │
+        ▼               ▼
+     Motors          DFPlayer
+        │
+        ▼
+   Robot Response
+```
+
+The robot therefore communicates through both **input and feedback**, rather than simply executing commands silently.
+
+---
+
+# 18. Project Objectives
+
+The major objectives of VORTEX 2.0 are:
+
+### Objective 1 — Robotics
+
+Develop a functional mobile robotic platform.
+
+### Objective 2 — Embedded Systems
+
+Integrate multiple sensors, actuators, and peripherals with microcontrollers.
+
+### Objective 3 — Voice Interaction
+
+Implement predefined voice-based command control.
+
+### Objective 4 — IoT
+
+Connect the robot with smart-home infrastructure through Blynk IoT.
+
+### Objective 5 — Human-Machine Interaction
+
+Create meaningful visual and audio feedback.
+
+### Objective 6 — Modular Design
+
+Develop a platform that can be expanded with additional hardware.
+
+### Objective 7 — Non-AI Robotics
+
+Explore interactive robotic behavior using deterministic embedded logic rather than AI.
+
+---
+
+# 19. Expected Capabilities
+
+The VORTEX 2.0 platform is intended to provide:
+
+* Voice-controlled movement
+* Obstacle detection
+* Environmental monitoring
+* OLED status display
+* Audio feedback
+* Smart-home appliance control
+* Wi-Fi connectivity
+* Blynk cloud communication
+* Distributed microcontroller control
+* Expandable robotic architecture
+
+---
+
+# 20. Future Development
+
+VORTEX 2.0 provides the foundation for future versions.
+
+Potential future development areas include:
+
+### Sensing
+
+* Additional ultrasonic sensors
+* Infrared sensors
+* Light sensors
+* Motion sensors
+* Cameras
+
+### Robotics
+
+* Improved navigation
+* Advanced obstacle avoidance
+* Better motion control
+* Additional actuators
+* Robotic arms
+
+### Interaction
+
+* More expressive OLED animations
+* Improved audio feedback
+* Expanded voice-command vocabulary
+* Additional interaction states
+
+### Smart Home
+
+* IR appliance control
+* More relay channels
+* Additional IoT devices
+* Expanded automation
+
+### Hardware
+
+* Custom PCB
+* Improved power management
+* Custom mechanical enclosure
+* Modular sensor ports
+
+---
+
+# 21. Development Roadmap
+
+```text
+VORTEX 1.0
+    │
+    ▼
+Basic Voice-Controlled Robot
+    │
+    ▼
+Smart Home Integration
+    │
+    ▼
+VORTEX 2.0
+    │
+    ├── Improved Interaction
+    ├── Improved Sensing
+    ├── Improved Mobility
+    ├── Expressive Interface
+    └── Modular Architecture
+            │
+            ▼
+      Future VORTEX
+            │
+            ├── Advanced Navigation
+            ├── Custom Hardware
+            ├── Expanded Sensors
+            └── New Robotic Capabilities
+```
+
+---
+
+# 22. Educational Value
+
+VORTEX 2.0 brings together several areas of engineering into one project.
+
+### Embedded Systems
+
+Microcontroller programming and peripheral interfacing.
+
+### Electronics
+
+Sensors, motor drivers, relays, displays, and power regulation.
+
+### Communication
+
+UART, I²C, Wi-Fi, and cloud communication.
+
+### Robotics
+
+Motor control, sensing, movement, and obstacle detection.
+
+### IoT
+
+Cloud-connected appliance control.
+
+### Software
+
+Firmware architecture, command processing, device communication, and debugging.
+
+This makes VORTEX a multidisciplinary engineering project rather than a single-component experiment.
+
+---
+
+# 23. Project Philosophy
+
+VORTEX is built around the idea that complex systems can emerge from the careful integration of simple engineering blocks.
+
+```text
+             SENSOR
+                +
+          MICROCONTROLLER
+                +
+              LOGIC
+                +
+         COMMUNICATION
+                +
+            ACTUATOR
+                +
+            FEEDBACK
+                ↓
+             VORTEX
+```
+
+Every subsystem has a defined role.
+
+The objective is to understand how those subsystems work together to create a complete robotic platform.
+
+---
+
+# 24. Current Development Status
+
+**VORTEX 2.0 — IN DEVELOPMENT**
+
+The project is actively evolving across:
+
+* Firmware
+* Electronics
+* Robotics
+* IoT
+* Voice interaction
+* Mechanical design
+* Human-machine interaction
+
+Features may change as hardware testing and development continue.
+
+---
+
+# 25. Project Statement
+
+VORTEX 2.0 is an exploration of what can be achieved when **embedded systems, robotics, IoT, voice interaction, sensors, actuators, and programmed logic** are combined into one physical platform.
+
+The project does not attempt to replace AI systems.
+
+Instead, it explores a different engineering path:
+
+> **Build the behavior. Understand the hardware. Control the system.**
+
+VORTEX 2.0 is intended to remain an evolving platform, with each generation adding new capabilities while preserving the core principles of modularity, experimentation, and hands-on engineering.
+
+---
+
+# ⚡ VORTEX 2.0
+
+## NON-AI ROBOTIC COMPANION SYSTEM
+
+> **Sense. Respond. Move.**
+
+### Embedded Systems × Robotics × IoT × Voice × Automation
+
+---
+
+**Project:** VORTEX 2.0
+**Developer:** V. Sagar
+**Status:** In Development
+**Platform:** ESP32 + ESP8266
+**Architecture:** Distributed Embedded + IoT
